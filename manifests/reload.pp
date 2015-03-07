@@ -9,7 +9,7 @@
 # send a HUP to *all* dnsmasq processes, of which there may be more than
 # one, however that should be harmless.
 #
-class dnsmasq::reload {
+class dnsmasq::reload inherits dnsmasq {
   exec { '/usr/bin/pkill -HUP dnsmasq':
     refreshonly => true,
   }
