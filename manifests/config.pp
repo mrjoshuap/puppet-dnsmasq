@@ -43,8 +43,8 @@ class dnsmasq::config inherits dnsmasq {
   }
 
   File {
-    owner => 'root',
-    group => 'root',
+    owner => '0',
+    group => '0',
   } ->
   file { $::dnsmasq::config_file:
     mode    => '0644',
