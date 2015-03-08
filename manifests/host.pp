@@ -58,7 +58,6 @@ define dnsmasq::host (
       default => $ensure,
     }
     if str2bool($::dnsmasq::exported) {
-      notify { 'attempting to use exported resources for ethers': }
       @@common::line { "dnsmasq::ethers ${h_real} ${mac_r}":
         ensure => $ethers_ensure,
         file   => $dnsmasq::ethers_file,
@@ -68,7 +67,6 @@ define dnsmasq::host (
       }
     }
     else {
-      notify { 'bypassing exported resources for ethers': }
       @common::line { "dnsmasq::ethers ${h_real} ${mac_r}":
         ensure => $ethers_ensure,
         file   => $dnsmasq::ethers_file,
@@ -88,7 +86,6 @@ define dnsmasq::host (
     default => $ensure,
   }
   if str2bool($::dnsmasq::exported) {
-    notify { 'attempting to use exported resources for hosts': }
     @@common::line { "dnsmasq::hosts ${h_real} ${ip}":
       ensure => $hosts_ensure,
       file   => $::dnsmasq::hosts_file,
@@ -97,7 +94,6 @@ define dnsmasq::host (
       tag    => 'dnsmasq-host',
     }
   } else {
-    notify { 'bypassing exported resources for hosts': }
     @common::line { "dnsmasq::hosts ${h_real} ${ip}":
       ensure => $hosts_ensure,
       file   => $::dnsmasq::hosts_file,
