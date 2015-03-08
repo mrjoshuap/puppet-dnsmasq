@@ -84,9 +84,11 @@ class dnsmasq (
   }
 
   if str2bool($exported) {
-    Common::Line <<| tag == 'dnsmasq-host' |>>
+      debug('DNSMASQ: using exported file_line resources')
+    File_line <<| tag == 'dnsmasq-host' |>>
   } else {
-    Common::Line <| tag == 'dnsmasq-host' |>
+    debug('DNSMASQ: bypassing exported file_line resources')
+    File_line <| tag == 'dnsmasq-host' |>
   }
 
 }

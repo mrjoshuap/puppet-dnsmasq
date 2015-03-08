@@ -43,14 +43,16 @@ define dnsmasq::dhcp_host (
   $hostname = '',
   $ip       = '',
   $prio     = '99',
-  ) {
+  $lease    = 'infinite',
+  $aliases  = '',
+) {
   $h_real = $hostname ? {
     ''      => $name,
     default => $hostname,
   }
   $add_real = $ip ? {
     ''      => $h_real,
-    default => "${h_real},${ip}",
+    default => "${h_real},${ip},${lease}",
   }
 
   dnsmasq::conf { "dhcp-host_${h_real}_${mac}":
