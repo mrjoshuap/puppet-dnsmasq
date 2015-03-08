@@ -39,12 +39,12 @@
 # # Making life easier
 define dnsmasq::dhcp_host (
   $mac,
+  $aliases  = '',
   $ensure   = 'present',
   $hostname = '',
   $ip       = '',
-  $prio     = '99',
   $lease    = 'infinite',
-  $aliases  = '',
+  $prio     = '99',
 ) {
   $h_real = $hostname ? {
     ''      => $name,
