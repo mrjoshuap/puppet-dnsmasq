@@ -38,12 +38,12 @@ class dnsmasq (
   $config_dir       = $::dnsmasq::params::config_dir,
   $config_file      = $::dnsmasq::params::config_file,
   $config_template  = $::dnsmasq::params::config_template,
+  $ethers_file      = $::dnsmasq::params::ethers_file,
   $exported         = $::dnsmasq::params::exported,
+  $hosts_file       = $::dnsmasq::params::hosts_file,
   $package_name     = $::dnsmasq::params::package_name,
   $resolv_file      = $::dnsmasq::params::resolv_file,
   $service_name     = $::dnsmasq::params::service_name,
-  $ethers_file      = $::dnsmasq::params::ethers_file,
-  $hosts_file       = $::dnsmasq::params::hosts_file,
   ) inherits dnsmasq::params {
 
   validate_absolute_path($config_dir)
