@@ -69,7 +69,9 @@ class dnsmasq (
   # Load the Hiera based sudoer configuration (if enabled and present)
   #
   # NOTE: We must use 'include' here to avoid circular dependencies with
-  #     sudo::conf
+  #     dnsmasq::configs
+  #     dnsmasq::dhcp_hosts
+  #     dnsmasq::hosts
   #
   # NOTE: There is no way to detect the existence of hiera. This automatic
   #   functionality is therefore made exclusive to Puppet 3+ (hiera is embedded)
