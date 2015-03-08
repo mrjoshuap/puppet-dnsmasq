@@ -73,6 +73,7 @@ class dnsmasq (
   #
   if (versioncmp($::puppetversion, '3') != -1) {
     include 'dnsmasq::configs'
+    include 'dnsmasq::hosts'
   }
 
   Common::Line <<| tag == 'dnsmasq-host' |>>
