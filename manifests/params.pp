@@ -36,11 +36,14 @@
 #
 class dnsmasq::params {
 
+  $exported = true
   $service_name = 'dnsmasq'
   $config_file = '/etc/dnsmasq.conf'
   $resolv_file = '/etc/resolv.conf-dnsmasq'
   $config_dir = '/etc/dnsmasq.d/'
   $config_template = "${module_name}/dnsmasq.conf.erb"
+  $hosts_file = '/etc/hosts'
+  $ethers_file = '/etc/ethers'
 
   case $::osfamily {
     debian: {

@@ -57,12 +57,23 @@ define dnsmasq::host (
       ''      => 'absent',
       default => $ensure,
     }
-    @common::line { "dnsmasq::ethers ${h_real} ${mac_r}":
-      ensure => $ethers_ensure,
-      file   => '/etc/ethers',
-      line   => "${mac_r} ${ip}",
-      notify => Class['dnsmasq::reload'],
-      tag    => 'dnsmasq-host',
+    if $::dnsmasq::exported {
+      @@common::line { "dnsmasq::ethers ${h_real} ${mac_r}":
+        ensure => $ethers_ensure,
+        file   => $dnsmasq::ethers_file,
+        line   => "${mac_r} ${ip}",
+        notify => Class['dnsmasq::reload'],
+        tag    => 'dnsmasq-host',
+      }
+    }
+    else {
+      @common::line { "dnsmasq::ethers ${h_real} ${mac_r}":
+        ensure => $ethers_ensure,
+        file   => $dnsmasq::ethers_file,
+        line   => "${mac_r} ${ip}",
+        notify => Class['dnsmasq::reload'],
+        tag    => 'dnsmasq-host',
+      }
     }
   }
   $al_add = $aliases ? {
@@ -74,11 +85,21 @@ define dnsmasq::host (
     ''      => 'absent',
     default => $ensure,
   }
-  @common::line { "dnsmasq::hosts ${h_real} ${ip}":
-    ensure => $hosts_ensure,
-    file   => '/etc/hosts',
-    line   => "${ip} ${h_real}${al_add}",
-    notify => Class['dnsmasq::reload'],
-    tag    => 'dnsmasq-host',
+  if $::dnsmasq::exported {
+    @@common::line { "dnsmasq::hosts ${h_real} ${ip}":
+      ensure => $hosts_ensure,
+      file   => $::dnsmasq::hosts_file,
+      line   => "${ip} ${h_real}${al_add}",
+      notify => Class['dnsmasq::reload'],
+      tag    => 'dnsmasq-host',
+    }
+  } else {
+    @common::line { "dnsmasq::hosts ${h_real} ${ip}":
+      ensure => $hosts_ensure,
+      file   => $::dnsmasq::hosts_file,
+      line   => "${ip} ${h_real}${al_add}",
+      notify => Class['dnsmasq::reload'],
+      tag    => 'dnsmasq-host',
+    }
   }
 }
