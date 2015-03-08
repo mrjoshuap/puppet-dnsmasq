@@ -80,7 +80,7 @@ class dnsmasq (
     include ::dnsmasq::hosts
   }
 
-  if $exported {
+  if str2bool($exported) {
     Common::Line <<| tag == 'dnsmasq-host' |>>
   } else {
     Common::Line <| tag == 'dnsmasq-host' |>

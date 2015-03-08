@@ -57,7 +57,7 @@ define dnsmasq::host (
       ''      => 'absent',
       default => $ensure,
     }
-    if $::dnsmasq::exported {
+    if str2bool($::dnsmasq::exported) {
       @@common::line { "dnsmasq::ethers ${h_real} ${mac_r}":
         ensure => $ethers_ensure,
         file   => $dnsmasq::ethers_file,
@@ -85,7 +85,7 @@ define dnsmasq::host (
     ''      => 'absent',
     default => $ensure,
   }
-  if $::dnsmasq::exported {
+  if str2bool($::dnsmasq::exported) {
     @@common::line { "dnsmasq::hosts ${h_real} ${ip}":
       ensure => $hosts_ensure,
       file   => $::dnsmasq::hosts_file,
