@@ -38,7 +38,7 @@ class dnsmasq::params {
 
   $service_name = 'dnsmasq'
   $config_file = '/etc/dnsmasq.conf'
-  $resolv_file = '/etc/resolv.conf.dnsmasq'
+  $resolv_file = '/etc/resolv.conf-dnsmasq'
   $config_dir = '/etc/dnsmasq.d/'
   $config_template = "${module_name}/dnsmasq.conf.erb"
 
