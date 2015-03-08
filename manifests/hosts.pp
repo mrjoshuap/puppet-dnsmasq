@@ -1,6 +1,6 @@
 # Class: dnsmasq::hosts
 #
-# This class enables support for a full hiera based sudoers configuration.
+# This class enables support for a full hiera based dnsmasq::host configuration.
 # Hiera functionality is auto enabled during the initial dnsmasq module load;
 #   this class is not intended to be loaded directly.
 #
