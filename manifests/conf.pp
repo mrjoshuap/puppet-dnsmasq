@@ -1,16 +1,25 @@
-# == Class: dnsmasq::conf
+# == Resource Type: dnsmasq::conf
 #
-# This generates a configuration suitable to be dropped into $dnsmasq::config_dir
+# This type generates a configuration file suitable to be dropped into
+# $dnsmasq::config_dir.
+#
+# NOTE: If you're looking to create dnsmasq configurations using Hiera, refer to
+# dnsmasq::configs for more information.
 #
 # === Parameters
 #
-# Document parameters here.
+# At a minimum, you must specify one of `content`, `source`, or `template`.  If
+# multiples are specified, the winner is chosen in the following order:
+#
+#   1. `template`
+#   2. `content`
+#   3. `source`
 #
 # [*ensure*]
 #   config file ensure value set to 'present' or 'absent', default is 'present'
 #
 # [*prio*]
-#   give a 2 digit priority / load order, default is 10
+#   give a 2 digit priority / load order, default is '10'
 #
 # [*source*]
 #   use this string as source to the config file, default is undef
@@ -25,35 +34,47 @@
 #
 # Here you should define a list of variables that this module would require.
 #
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if
-#   it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should be avoided in favor of class parameters as
-#   of Puppet 2.6.)
+# [*dnsmasq::config_dir*]
+#   the config_dir is used as the location to create the configuration file.
 #
 # === Examples
 #
-#  dnsmasq::conf { 'filterwin2k':
-#    content => "filterwin2k",
-#  }
+#   include ::dnsmasq
 #
-#  dnsmasq::conf { 'config_name':
-#    prio   => 99,
-#    source => "puppet:///modules/${module_name}/config_name",
-#  }
+#   dnsmasq::conf { 'filterwin2k':
+#     content => "filterwin2k",
+#   }
 #
-#  dnsmasq::conf { 'my_config':
-#    template => "${module_name}/my_config",
-#  }
+#   dnsmasq::conf { 'config_name':
+#     prio   => '75',
+#     source => "puppet:///modules/${module_name}/config_name",
+#   }
+#
+#   dnsmasq::conf { 'my_config':
+#     prio     => '15'
+#     template => "${module_name}/my_config",
+#   }
 #
 # === Authors
 #
-# Josh Preston <joshua.preston@prestoncentral.com>
+# Steffen Zieger
+# Josh Preston
 #
 # === Copyright
 #
-# Copyright 2015 Josh Preston, unless otherwise noted.
+# Copyright 2011 Steffen Zieger
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
 define dnsmasq::conf (
   $content  = undef,
@@ -63,18 +84,22 @@ define dnsmasq::conf (
   $template = undef,
 ) {
 
-  if $ensure == 'present' and !$source and !$content and !$template {
-    fail("No source, content or template specified for dnsmasq::conf[${name}]")
-  }
-  elsif !$source and $content and $template {
-    # content wins!
-    $content_real = $content
-  }
-  elsif !$source and $template {
+  if $template {
+    # template wins!
     $content_real = template($template)
+    $source_real = undef
   }
-  else {
+  elsif $content {
+    # content wins.
+    $content_real = $content
+    $source_real = undef
+  }
+  elsif $source {
+    # source wins...
     $content_real = undef
+    $source_real = $source
+  } elsif $ensure == 'present' {
+    fail("No source, content or template specified for dnsmasq::conf[${name}]")
   }
 
   file { "${::dnsmasq::config_dir}${prio}-${name}":
@@ -82,7 +107,7 @@ define dnsmasq::conf (
     owner   => 'root',
     group   => 'root',
     content => $content_real,
-    source  => $source,
+    source  => $source_real,
     notify  => Class['dnsmasq::service'],
   }
 
