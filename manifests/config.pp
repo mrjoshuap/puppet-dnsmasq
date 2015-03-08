@@ -42,16 +42,17 @@ class dnsmasq::config inherits dnsmasq {
     $config_template_real = "${module_name}/dnsmasq.conf"
   }
 
-  File {
-    owner => '0',
-    group => '0',
-  } ->
   file { $::dnsmasq::config_file:
+    ensure  => file,
+    owner   => '0',
+    group   => '0',
     mode    => '0644',
     content => template($config_template_real),
   } ->
   file { $::dnsmasq::config_dir:
-    ensure  => 'directory',
+    ensure  => directory,
+    owner   => '0',
+    group   => '0',
     recurse => true,
     purge   => true,
     force   => true,
