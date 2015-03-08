@@ -57,7 +57,7 @@ define dnsmasq::host (
       ''      => 'absent',
       default => $ensure,
     }
-    @@common::line { "dnsmasq::ethers ${h_real} ${mac_r}":
+    @common::line { "dnsmasq::ethers ${h_real} ${mac_r}":
       ensure => $ethers_ensure,
       file   => '/etc/ethers',
       line   => "${mac_r} ${ip}",
@@ -74,7 +74,7 @@ define dnsmasq::host (
     ''      => 'absent',
     default => $ensure,
   }
-  @@common::line { "dnsmasq::hosts ${h_real} ${ip}":
+  @common::line { "dnsmasq::hosts ${h_real} ${ip}":
     ensure => $hosts_ensure,
     file   => '/etc/hosts',
     line   => "${ip} ${h_real}${al_add}",

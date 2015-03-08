@@ -77,6 +77,6 @@ class dnsmasq (
     include ::dnsmasq::hosts
   }
 
-  Common::Line <<| tag == 'dnsmasq-host' |>>
+  Common::Line <| tag == 'dnsmasq-host' |>
 
 }
