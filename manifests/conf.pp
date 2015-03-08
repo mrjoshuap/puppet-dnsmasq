@@ -36,17 +36,29 @@
 # Copyright 2015 Josh Preston, unless otherwise noted.
 #
 define dnsmasq::conf (
-  $ensure  = 'present',
-  $prio    = 10,
-  $source  = undef,
-  $content = undef,
+  $ensure   = 'present',
+  $prio     = 10,
+  $source   = undef,
+  $content  = undef,
+  $template = undef,
 ) {
+
+  if !$source and $content and $template {
+    # content wins!
+    $content_real = $content
+  }
+  elsif !$source and $template {
+    $content_real = template($template)
+  }
+  else {
+    $content_real = undef
+  }
 
   file { "${::dnsmasq::config_dir}${prio}-${name}":
     ensure  => $ensure,
     owner   => 'root',
     group   => 'root',
-    content => $content,
+    content => $content_real,
     source  => $source,
     notify  => Class['dnsmasq::service'],
   }
