@@ -57,14 +57,26 @@ define dnsmasq::host (
       ''      => 'absent',
       default => $ensure,
     }
-    @@file_line { "dnsmasq::ethers ${h_real} ${mac_r}":
-      ensure   => $ethers_ensure,
-      path     => $dnsmasq::ethers_file,
-      line     => "${mac_r} ${ip}",
-      match    => "^${mac_r}",
-      multiple => false,
-      notify   => Class['dnsmasq::reload'],
-      tag      => 'dnsmasq-host',
+    if str2bool($::dnsmasq::exported) {
+      @@file_line { "dnsmasq::ethers ${h_real} ${mac_r}":
+        ensure   => $ethers_ensure,
+        path     => $dnsmasq::ethers_file,
+        line     => "${mac_r} ${ip}",
+        match    => "^${mac_r}",
+        multiple => false,
+        notify   => Class['dnsmasq::reload'],
+        tag      => 'dnsmasq-host',
+      }
+    } else {
+      @file_line { "dnsmasq::ethers ${h_real} ${mac_r}":
+        ensure   => $ethers_ensure,
+        path     => $dnsmasq::ethers_file,
+        line     => "${mac_r} ${ip}",
+        match    => "^${mac_r}",
+        multiple => false,
+        notify   => Class['dnsmasq::reload'],
+        tag      => 'dnsmasq-host',
+      }
     }
   }
   $al_add = $aliases ? {
@@ -76,14 +88,26 @@ define dnsmasq::host (
     ''      => 'absent',
     default => $ensure,
   }
-  @@file_line { "dnsmasq::hosts ${h_real} ${ip}":
-    ensure   => $hosts_ensure,
-    path     => $::dnsmasq::hosts_file,
-    line     => "${ip} ${h_real}${al_add}",
-    match    => "^${ip} ",
-    multiple => false,
-    notify   => Class['dnsmasq::reload'],
-    tag      => 'dnsmasq-host',
+  if str2bool($::dnsmasq::exported) {
+    @@file_line { "dnsmasq::hosts ${h_real} ${ip}":
+      ensure   => $hosts_ensure,
+      path     => $::dnsmasq::hosts_file,
+      line     => "${ip} ${h_real}${al_add}",
+      match    => "^${ip} ",
+      multiple => false,
+      notify   => Class['dnsmasq::reload'],
+      tag      => 'dnsmasq-host',
+    }
+  } else {
+    @file_line { "dnsmasq::hosts ${h_real} ${ip}":
+      ensure   => $hosts_ensure,
+      path     => $::dnsmasq::hosts_file,
+      line     => "${ip} ${h_real}${al_add}",
+      match    => "^${ip} ",
+      multiple => false,
+      notify   => Class['dnsmasq::reload'],
+      tag      => 'dnsmasq-host',
+    }
   }
 
 }
