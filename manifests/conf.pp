@@ -1,14 +1,25 @@
 # == Class: dnsmasq::conf
 #
-# Full description of class dnsmasq::conf here.
+# This generates a configuration suitable to be dropped into $dnsmasq::config_dir
 #
 # === Parameters
 #
 # Document parameters here.
 #
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
+# [*ensure*]
+#   config file ensure value set to 'present' or 'absent', default is 'present'
+#
+# [*prio*]
+#   give a 2 digit priority / load order, default is 10
+#
+# [*source*]
+#   use this string as source to the config file, default is undef
+#
+# [*content*]
+#   use this string as the content to the config file, default is undef
+#
+# [*template*]
+#   use this string as the template to render as config file, default is undef
 #
 # === Variables
 #
@@ -23,8 +34,17 @@
 #
 # === Examples
 #
+#  dnsmasq::conf { 'filterwin2k':
+#    content => "filterwin2k",
+#  }
+#
 #  dnsmasq::conf { 'config_name':
-#    content => "puppet:///modules/${module_name}/config_name",
+#    prio   => 99,
+#    source => "puppet:///modules/${module_name}/config_name",
+#  }
+#
+#  dnsmasq::conf { 'my_config':
+#    template => "${module_name}/my_config",
 #  }
 #
 # === Authors
@@ -43,7 +63,10 @@ define dnsmasq::conf (
   $template = undef,
 ) {
 
-  if !$source and $content and $template {
+  if $ensure == 'present' and !$source and !$content and !$template {
+    fail("No source, content or template specified for dnsmasq::conf[${name}]")
+  }
+  elsif !$source and $content and $template {
     # content wins!
     $content_real = $content
   }
