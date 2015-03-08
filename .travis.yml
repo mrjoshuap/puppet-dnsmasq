@@ -1,0 +1,19 @@
+---
+rvm:
+  - 1.8.7
+  - 1.9.3
+  - 2.0.0
+  - 2.1.5
+notifications:
+  email:
+    - jdp.github@prestoncentral.com
+env:
+  - PUPPET_VERSION=3.2.4
+  - PUPPET_VERSION=3.3.2
+  - PUPPET_VERSION=3.4.3
+  - PUPPET_VERSION=3.5.1
+  - PUPPET_VERSION=3.6.2
+  - PUPPET_VERSION=3.7.1
+  - PUPPET_VERSION=3.7.2
+  - PUPPET_VERSION=3.7.3
+  - PUPPET_VERSION=3.7.4
