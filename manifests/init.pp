@@ -51,7 +51,10 @@ class dnsmasq (
   validate_string($config_template)
   validate_string($package_name)
   validate_string($service_name)
+  validate_bool($exported)
   validate_absolute_path($resolv_file)
+  validate_absolute_path($ethers_file)
+  validate_absolute_path($hosts_file)
 
   # Anchor this as per #8040 - this ensures that classes won't float off and
   # mess everything up.  You can read about this at:
