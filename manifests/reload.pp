@@ -11,7 +11,7 @@
 #
 class dnsmasq::reload inherits dnsmasq {
   exec { '/usr/bin/pkill -HUP dnsmasq':
-    requires    => Service[$::dnsmasq::service_name],
+    require     => Service[$::dnsmasq::service_name],
     refreshonly => true,
   }
 }
