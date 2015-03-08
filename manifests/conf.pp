@@ -56,10 +56,10 @@
 # Copyright 2015 Josh Preston, unless otherwise noted.
 #
 define dnsmasq::conf (
-  $ensure   = 'present',
-  $prio     = 10,
-  $source   = undef,
   $content  = undef,
+  $ensure   = 'present',
+  $prio     = '10',
+  $source   = undef,
   $template = undef,
 ) {
 
