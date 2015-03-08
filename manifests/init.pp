@@ -83,6 +83,7 @@ class dnsmasq (
   if str2bool($exported) {
     Common::Line <<| tag == 'dnsmasq-host' |>>
   } else {
+    notify { 'collecting exported resources for dnsmasq::hosts': }
     Common::Line <| tag == 'dnsmasq-host' |>
   }
 
