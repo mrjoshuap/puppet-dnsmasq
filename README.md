@@ -54,10 +54,12 @@ The basics of getting started with dnsmasq.
 
 This module manages dnsmasq which affects the following:
 
+```
     /etc/ethers         #- DHCP Client Mapping
     /etc/hosts          #- DNS Lookups (FQDN and aliases)
     /etc/dnsmasq.conf   #- main dnsmasq config file (include dir)
     /etc/dnsmasq.d/*    #- dnsmasq managed include config directory
+```
 
 The config directory is a managed directory by default.  Any non-managed configurations
 located in it will be removed.  If you wish to disable this behavior, set `dnsmasq::purge` to `false`.
@@ -83,7 +85,7 @@ bind interfaces, and other options specific to your site.
 
 For example, use a template that looks like:
 * `some_module/templates/my-site.erb`
-`
+```
     domain-needed
     bogus-priv
     resolv-file=<%= scope.lookupvar('::dnsmasq::resolv_file') %>
@@ -95,75 +97,75 @@ For example, use a template that looks like:
     expand-hosts
     domain=<%= scope.lookupvar('::domain') -%>,10.0.1.0/24
     selfmx
-`
+```
 
 Then configure it with Hiera:
-`
+```
     dnsmasq::configs:
       my-site:
         ensure: present
         prio: 01
         template: some_module/dnsmasq.d/my-site.erb
-`
+```
 
 #### Configurations: Hiera
 
 The preferred way to configure dnsmasq is with the use of Hiera.
 
 Source a static configuration file
-`
+```
     dnsmasq::configs:
       local-dns:
         source: puppet:///files/dnsmasq/local-dns
-`
+```
 
 or, Specify the exact content
-`
+```
     dnsmasq::configs:
       another-config:
         content: dhcp-range=192.168.0.50,192.168.0.150,12h
-`
+```
 
 or, Specify a template to be rendered
-`
+```
     dnsmasq::configs:
       another-config:
         ensure: present
         template: some_module/dnsmasq-template.erb
-`
+```
 
 #### Configurations: Puppet Code
 
 Although not preferred, you can also create configurations with Puppet code.
 
 Source a static configuration file
-`
+```
     ::dnsmasq::conf { 'local-dns':
       ensure => present,
       source => 'puppet:///files/dnsmasq/local-dns',
     }
-`
+```
 
 or, Specify the exact content
-`
+```
     ::dnsmasq::conf { 'another-config':
       ensure  => present,
       content => 'dhcp-range=192.168.0.50,192.168.0.150,12h',
     }
-`
+```
 
 or, Render your own template
-`
+```
     ::dnsmasq::conf { 'another-config':
       ensure  => present,
       content => template('some_module/dnsmasq-template.erb'),
     }
-`
+```
 
 or, Specify a template to be rendered
-`
+```
     ::dnsmasq::conf' { 'another-config':
       ensure   = 'present',
       template = 'some_module/dnsmasq-template.erb',
     }
-`
+```
