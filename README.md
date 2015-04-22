@@ -59,6 +59,9 @@ This module manages dnsmasq which affects the following:
     /etc/dnsmasq.conf   #- main dnsmasq config file (include dir)
     /etc/dnsmasq.d/*    #- dnsmasq managed include config directory
 
+The config directory is a managed directory by default.  Any non-managed configurations
+located in it will be removed.  If you wish to disable this behavior, set `dnsmasq::purge` to `false`.
+
 ### Setup Requirements
 
 1.  Install

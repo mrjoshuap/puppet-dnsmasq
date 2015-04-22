@@ -37,6 +37,10 @@
 # [*package_name*]
 #   The name of the dnsmasq package.  Defaults based on `::osfamily`.
 #
+# [*purge*]
+#   Boolean value that forces configuration files in `${::dnsmasq::config_dir}` to
+#   be managed.  This will delete any non-managed files.  Defaults to `true`.
+#
 # [*resolv_file*]
 #   Specify an alternative `resolv.conf` file that dnsmasq will use.  Defaults to
 #   `/etc/resolv.conf-dnsmasq`
@@ -112,20 +116,20 @@ class dnsmasq (
   $exported         = $::dnsmasq::params::exported,
   $hosts_file       = $::dnsmasq::params::hosts_file,
   $package_name     = $::dnsmasq::params::package_name,
+  $purge            = $::dnsmasq::params::purge,
   $resolv_file      = $::dnsmasq::params::resolv_file,
   $service_name     = $::dnsmasq::params::service_name,
-  $purge            = $::dnsmasq::params::purge,
   ) inherits dnsmasq::params {
 
   validate_absolute_path($config_dir)
   validate_absolute_path($config_file)
+  validate_absolute_path($ethers_file)
+  validate_absolute_path($hosts_file)
+  validate_absolute_path($resolv_file)
   validate_string($config_template)
   validate_string($package_name)
   validate_string($service_name)
   validate_bool($exported)
-  validate_absolute_path($resolv_file)
-  validate_absolute_path($ethers_file)
-  validate_absolute_path($hosts_file)
   validate_bool($purge)
 
   # Anchor this as per #8040 - this ensures that classes won't float off and

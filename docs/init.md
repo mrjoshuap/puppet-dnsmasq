@@ -37,6 +37,10 @@ Document parameters here.  All default values are specified in `dnsmasq::params`
 [*package_name*]
   The name of the dnsmasq package.  Defaults based on `::osfamily`.
 
+[*purge*]
+  Boolean value that forces configuration files in `${::dnsmasq::config_dir}` to
+  be managed.  This will delete any non-managed files.  Defaults to `true`.
+
 [*resolv_file*]
   Specify an alternative `resolv.conf` file that dnsmasq will use.  Defaults to
   `/etc/resolv.conf-dnsmasq`
