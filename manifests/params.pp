@@ -57,6 +57,7 @@ class dnsmasq::params {
   $config_template = "${module_name}/dnsmasq.conf.erb"
   $hosts_file = '/etc/hosts'
   $ethers_file = '/etc/ethers'
+  $purge = true
 
   case $::osfamily {
     debian: {

@@ -114,6 +114,7 @@ class dnsmasq (
   $package_name     = $::dnsmasq::params::package_name,
   $resolv_file      = $::dnsmasq::params::resolv_file,
   $service_name     = $::dnsmasq::params::service_name,
+  $purge            = $::dnsmasq::params::purge,
   ) inherits dnsmasq::params {
 
   validate_absolute_path($config_dir)
@@ -125,6 +126,7 @@ class dnsmasq (
   validate_absolute_path($resolv_file)
   validate_absolute_path($ethers_file)
   validate_absolute_path($hosts_file)
+  validate_bool($purge)
 
   # Anchor this as per #8040 - this ensures that classes won't float off and
   # mess everything up.  You can read about this at:
