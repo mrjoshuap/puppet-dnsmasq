@@ -34,9 +34,9 @@ From http://www.thekelleys.org.uk/dnsmasq/doc.html
 
 This module manages dnsmasq server installations.  It provides the following types:
 
-* dnsmasq::conf
-* dnsmasq::dhcp_host
-* dnsmasq::host
+* ```dnsmasq::conf```
+* ```dnsmasq::dhcp_host```
+* ```dnsmasq::host```
 
 Configurations can be created and managed preferably with Hiera or alternatively
 through Puppet Code.
@@ -62,9 +62,11 @@ This module manages dnsmasq which affects the following:
 ### Setup Requirements
 
 1.  Install
+
     `puppet module install mrjoshuap/dnsmasq`
-2.  Include the module
+2.  Include the module in your Puppet Code
     `include ::dnsmasq`
+
 3.  Configure with Hiera
 4.  Configure with Puppet Code
 5.  Paydirt
