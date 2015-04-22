@@ -38,6 +38,14 @@ This module manages dnsmasq server installations.  It provides the following typ
 * dnsmasq::dhcp_host
 * dnsmasq::host
 
+Configurations can be created and managed preferably with Hiera or alternatively
+through Puppet Code.
+
+It supports exporting virtual resources with the ```dnsmasq::exported``` class
+parameter, so ```dnsmasq::dhcp_host``` types can be managed in Puppet Code and
+the server will automatically import those resources.  If you are running with
+no Puppet Master (masterless), set ```dnsmasq::exported``` to ```false```.
+
 ## Setup
 
 The basics of getting started with dnsmasq.
@@ -58,7 +66,8 @@ This module manages dnsmasq which affects the following:
 2.  Include the module
     `include ::dnsmasq`
 3.  Configure with Hiera
-4.  Paydirt
+4.  Configure with Puppet Code
+5.  Paydirt
 
 ### Beginning with dnsmasq
 
