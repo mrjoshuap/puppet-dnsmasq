@@ -93,7 +93,7 @@ define dnsmasq::dhcp_host (
     ensure  => $ensure,
     content => "dhcp-host=${mac},id:*,${add_real}\n",
     prio    => $prio,
-    notify  => Exec['/usr/bin/pkill -HUP dnsmasq'],
+    notify  => Class['dnsmasq::service'],
   }
 
 }
