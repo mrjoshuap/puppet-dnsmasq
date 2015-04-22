@@ -107,6 +107,7 @@ define dnsmasq::host (
         path     => $dnsmasq::ethers_file,
         line     => "${mac_r} ${ip}",
         multiple => false,
+        match    => "^${mac_r}",
         notify   => Class['dnsmasq::reload'],
         tag      => 'dnsmasq-host',
       }
@@ -116,6 +117,7 @@ define dnsmasq::host (
         ensure   => $ethers_ensure,
         path     => $dnsmasq::ethers_file,
         line     => "${mac_r} ${ip}",
+        match    => "^${mac_r}",
         multiple => false,
         notify   => Class['dnsmasq::reload'],
         tag      => 'dnsmasq-host',
@@ -131,11 +133,13 @@ define dnsmasq::host (
     ''      => 'absent',
     default => $ensure,
   }
+  $ip_r = regsubst($ip, '\.', '\\\.', 'G')
   if str2bool($::dnsmasq::exported) {
     debug('DNSMASQ: using exported file_line resources')
     @@file_line { "dnsmasq::hosts ${h_real} ${ip}":
       ensure => $hosts_ensure,
       path   => $::dnsmasq::hosts_file,
+      match  => "^${ip_r}",
       line   => "${ip} ${h_real}${al_add}",
       notify => Class['dnsmasq::reload'],
       tag    => 'dnsmasq-host',
@@ -145,6 +149,7 @@ define dnsmasq::host (
     @file_line { "dnsmasq::hosts ${h_real} ${ip}":
       ensure => $hosts_ensure,
       path   => $::dnsmasq::hosts_file,
+      match  => "^${ip_r}",
       line   => "${ip} ${h_real}${al_add}",
       notify => Class['dnsmasq::reload'],
       tag    => 'dnsmasq-host',
