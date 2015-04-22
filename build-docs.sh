@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ -d "${PWD:-.}/docs" ] && rm "${PWD:-.}/docs/*" || mkdir -p "${PWD:-.}/docs"
+[ -d "${PWD:-.}/docs" ] && rm "${PWD:-.}/docs/*" 2> /dev/null || mkdir -p "${PWD:-.}/docs"
 
 for i in manifests/*.pp;
 do
