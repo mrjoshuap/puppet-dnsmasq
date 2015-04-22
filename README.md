@@ -35,7 +35,7 @@ From http://www.thekelleys.org.uk/dnsmasq/doc.html
 This module manages dnsmasq server installations.  It provides the following types:
 
 * [```dnsmasq::conf```](docs/conf.md)
-* [```dnsmasq::dhcp_host```](docs/dhcp_host.md)]
+* [```dnsmasq::dhcp_host```](docs/dhcp_host.md)
 * [```dnsmasq::host```](docs/host.d)
 
 Configurations can be created and managed preferably with Hiera or alternatively
