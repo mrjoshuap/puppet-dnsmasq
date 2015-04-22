@@ -34,17 +34,17 @@ From http://www.thekelleys.org.uk/dnsmasq/doc.html
 
 This module manages dnsmasq server installations.  It provides the following types:
 
-* [```dnsmasq::conf```](docs/conf.md)
-* [```dnsmasq::dhcp_host```](docs/dhcp_host.md)
-* [```dnsmasq::host```](docs/host.d)
+* [`dnsmasq::conf`](docs/conf.md)
+* [`dnsmasq::dhcp_host`](docs/dhcp_host.md)
+* [`dnsmasq::host`](docs/host.d)
 
 Configurations can be created and managed preferably with Hiera or alternatively
 through Puppet Code.
 
-It supports exporting virtual resources with the ```dnsmasq::exported``` class
-parameter, so ```dnsmasq::dhcp_host``` types can be managed in Puppet Code and
+It supports exporting virtual resources with the `dnsmasq::exported` class
+parameter, so `dnsmasq::dhcp_host` types can be managed in Puppet Code and
 the server will automatically import those resources.  If you are running with
-no Puppet Master (masterless), set ```dnsmasq::exported``` to ```false```.
+no Puppet Master (masterless), set `dnsmasq::exported` to `false`.
 
 ## Setup
 
@@ -77,13 +77,13 @@ located in it will be removed.  If you wish to disable this behavior, set `dnsma
 ### Beginning with dnsmasq
 
 First, the default configuration template only includes configuration files
-in the ```::dnsmasq::config_dir```.  This means that to do anything interesting,
+in the `::dnsmasq::config_dir`.  This means that to do anything interesting,
 you'll want to build some basic configuration.  This typically means setting
 bind interfaces, and other options specific to your site.
 
 For example, use a template that looks like:
-* ```some_module/templates/my-site.erb```
-```
+* `some_module/templates/my-site.erb`
+`
     domain-needed
     bogus-priv
     resolv-file=<%= scope.lookupvar('::dnsmasq::resolv_file') %>
@@ -95,75 +95,75 @@ For example, use a template that looks like:
     expand-hosts
     domain=<%= scope.lookupvar('::domain') -%>,10.0.1.0/24
     selfmx
-```
+`
 
 Then configure it with Hiera:
-```
+`
     dnsmasq::configs:
       my-site:
         ensure: present
         prio: 01
         template: some_module/dnsmasq.d/my-site.erb
-```
+`
 
 #### Configurations: Hiera
 
 The preferred way to configure dnsmasq is with the use of Hiera.
 
 Source a static configuration file
-```
+`
     dnsmasq::configs:
       local-dns:
         source: puppet:///files/dnsmasq/local-dns
-```
+`
 
 or, Specify the exact content
-```
+`
     dnsmasq::configs:
       another-config:
         content: dhcp-range=192.168.0.50,192.168.0.150,12h
-```
+`
 
 or, Specify a template to be rendered
-```
+`
     dnsmasq::configs:
       another-config:
         ensure: present
         template: some_module/dnsmasq-template.erb
-```
+`
 
 #### Configurations: Puppet Code
 
 Although not preferred, you can also create configurations with Puppet code.
 
 Source a static configuration file
-```
+`
     ::dnsmasq::conf { 'local-dns':
       ensure => present,
       source => 'puppet:///files/dnsmasq/local-dns',
     }
-```
+`
 
 or, Specify the exact content
-```
+`
     ::dnsmasq::conf { 'another-config':
       ensure  => present,
       content => 'dhcp-range=192.168.0.50,192.168.0.150,12h',
     }
-```
+`
 
 or, Render your own template
-```
+`
     ::dnsmasq::conf { 'another-config':
       ensure  => present,
       content => template('some_module/dnsmasq-template.erb'),
     }
-```
+`
 
 or, Specify a template to be rendered
-```
+`
     ::dnsmasq::conf' { 'another-config':
       ensure   = 'present',
       template = 'some_module/dnsmasq-template.erb',
     }
-```
+`
