@@ -5,6 +5,8 @@
 #### Table of Contents
 
 1. [Overview](#overview)
+    * [Authors](#authors)
+    * [Copyright](#copyright)
 2. [Module Description](#module-description)
 3. [Setup](#setup)
     * [What dnsmasq Affects](#what-dnsmasq-affects)
@@ -29,6 +31,28 @@ From http://www.thekelleys.org.uk/dnsmasq/doc.html
     platforms include Linux (with glibc and uclibc), Android, *BSD, and Mac OS X.
     Dnsmasq is included in most Linux distributions and the ports systems of
     FreeBSD, OpenBSD and NetBSD. Dnsmasq provides full IPv6 support.
+
+### Authors
+
+* Steffen Zieger
+* Udo Waechter
+* Josh Preston
+
+### Copyright
+
+Copyright 2011 Steffen Zieger
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
 ## Module Description
 
@@ -169,25 +193,3 @@ or, Specify a template to be rendered
       template = 'some_module/dnsmasq-template.erb',
     }
 ```
-
-### Authors
-
-* Steffen Zieger
-* Udo Waechter
-* Josh Preston
-
-### Copyright
-
-Copyright 2011 Steffen Zieger
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
