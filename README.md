@@ -84,7 +84,7 @@ you'll want to build some basic configuration.  This typically means setting
 bind interfaces, and other options specific to your site.
 
 For example, use a template that looks like:
-* `some_module/templates/my-site.erb`
+* `some_module/templates/dnsmasq.d/my-site.erb`
 ```
     domain-needed
     bogus-priv
