@@ -70,6 +70,7 @@ class dnsmasq::config inherits dnsmasq {
     group   => '0',
     mode    => '0644',
     content => template($config_template_real),
+    notify  => Class['dnsmasq::service'],
   } ->
   file { $::dnsmasq::config_dir:
     ensure  => directory,
