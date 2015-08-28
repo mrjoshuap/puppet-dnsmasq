@@ -193,3 +193,16 @@ or, Specify a template to be rendered
       template = 'some_module/dnsmasq-template.erb',
     }
 ```
+
+### Host Lookups and DHCP Reservations Overview
+
+Since dnsmasq provides DNS services, it must know about IPs and hosts.  You can
+create adhoc hosts for dnsmasq with the `dnsmasq::host` type and DHCP reservations with
+the `dnsmasq::dhcp_host` type.
+
+#### Host Lookups
+
+For host resolution, dnsmasq by default will rely on `/etc/hosts`.  When you create
+a new `dnsmasq::host`, it creates the appropriate entry in `/etc/hosts`.  Afterwards,
+it will reload dnsmasq so the changes take close to immediate effect.
+
