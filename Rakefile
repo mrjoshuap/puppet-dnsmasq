@@ -5,6 +5,7 @@ require 'rspec-puppet'
 
 require 'rspec/core/rake_task'
 
+PuppetLint.configuration.fail_on_warnings
 PuppetLint.configuration.send('disable_autoloader_layout')
 PuppetLint.configuration.send('disable_class_inherits_from_params_class')
 PuppetLint.configuration.send('disable_80chars')
