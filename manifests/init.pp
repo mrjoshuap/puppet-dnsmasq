@@ -162,8 +162,7 @@ class dnsmasq (
   }
 
   if str2bool($exported) {
-    debug('DNSMASQ: using exported file_line resources')
-    File_line <<| tag == 'dnsmasq-host' |>>
+    include dnsmasq::collect
   } else {
     debug('DNSMASQ: bypassing exported file_line resources')
     File_line <| tag == 'dnsmasq-host' |>
