@@ -1,3 +1,6 @@
+2016-02-04  jfarrell
+  * Move File_line into its own collect manifest
+
 2015-04-24  Josh Preston
 
   * major documentation updates
