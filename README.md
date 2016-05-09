@@ -60,7 +60,7 @@ This module manages dnsmasq server installations.  It provides the following typ
 
 * [`dnsmasq::conf`](docs/conf.md)
 * [`dnsmasq::dhcp_host`](docs/dhcp_host.md)
-* [`dnsmasq::host`](docs/host.d)
+* [`dnsmasq::host`](docs/host.md)
 
 Configurations can be created and managed preferably with Hiera or alternatively
 through Puppet Code.
